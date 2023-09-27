@@ -9,21 +9,24 @@ import UIKit
 
 class MainCollectionViewModel {
     
-//    var plantList: [PlantModel] = PlantModel.getMockArray()
+    var plantList: [PlantModel] = PlantModel.getMockArray()
     
     var dataDidChange: (() -> Void)?
     
     var apiManager = APIClient()
+    // - MARK: arreglar funcionalidad de api
+    //    var plants: PlantPage = PlantPage() {
+    //        didSet {
+    //            dataDidChange?()
+    //        }
+    //    }
     
-    var plants: [PlantModel] = [] {
-        didSet {
-            dataDidChange?()
-        }
-    }
+    var page: PlantPage?
     
-    func fetchDataFromAPI() {
-        apiManager.fetchData { [weak self] plants in
-            self?.plants = plants
-        }
-    }
+    // - MARK: arreglar funcionalidad de api
+    //    func fetchDataFromAPI() {
+    //        apiManager.fetchData { [weak self] page in
+    //            self?.page = page
+    //        }
+    //    }
 }

@@ -13,17 +13,18 @@ class MainCollectionView: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero,
-                                              collectionViewLayout: UICollectionViewFlowLayout()
+                                  collectionViewLayout: UICollectionViewFlowLayout()
         )
         
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainCollectionViewModel.fetchDataFromAPI()
+        // - MARK: arreglar funcionalidad de api
+        //        mainCollectionViewModel.fetchDataFromAPI()
         setUpObservers()
         configureView()
     }
@@ -51,32 +52,45 @@ class MainCollectionView: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
+            
         ])
         
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-
+    
 }
 
 extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mainCollectionViewModel.plants.count
+        // - MARK: arreglar funcionalidad de api
+        //        guard let itemsCount = mainCollectionViewModel.page?.data.count else {
+        //            return 0
+        //        }
+        //        return itemsCount
+        let plants = mainCollectionViewModel.plantList.count
+        return plants
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
             fatalError("Unable to dequeue PlantCell in mainCollectionView")
         }
+        // - MARK: arreglar funcionalidad de api
+        //        guard let plant = mainCollectionViewModel.page?.data[indexPath.row] else {
+        //            return cell
+        //        }
+        //        cell.configure(with: plant)
+        //
+        //        return cell
         
-        let plant = mainCollectionViewModel.plants[indexPath.row]
+        let plant = mainCollectionViewModel.plantList[indexPath.row]
         cell.configure(with: plant)
-        
         return cell
     }
     

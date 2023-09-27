@@ -9,7 +9,7 @@ import UIKit
 
 class APIClient {
     
-    func fetchData(completion: @escaping ([PlantModel]) -> Void) {
+    func fetchData(completion: @escaping (PlantPage) -> Void) {
         
         let endPoint = "https://trefle.io/api/v1/plants?token=6iBkYteQSqlDkPLG7e2VVXu5YewFcnBgCCc0TwESy4w"
         
@@ -28,9 +28,9 @@ class APIClient {
                 if let data = data {
                     do {
                         let decoder = JSONDecoder()
-                        let plants = try decoder.decode([PlantModel].self, from: data)
+                        let plantPage = try decoder.decode(PlantPage.self, from: data)
                         
-                        completion(plants)
+                        completion(plantPage)
                     } catch {
                         print("Error al decodificar datos Json: \(error.localizedDescription)")
                     }
