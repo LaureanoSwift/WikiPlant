@@ -24,7 +24,7 @@ class MainCollectionView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // - MARK: arreglar funcionalidad de api
-        //        mainCollectionViewModel.fetchDataFromAPI()
+        mainCollectionViewModel.fetchDataFromAPI()
         setUpObservers()
         configureView()
     }
@@ -65,15 +65,15 @@ class MainCollectionView: UIViewController {
 }
 
 extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    //datasource
+    //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // - MARK: arreglar funcionalidad de api
-        //        guard let itemsCount = mainCollectionViewModel.page?.data.count else {
-        //            return 0
-        //        }
-        //        return itemsCount
-        let plants = mainCollectionViewModel.plantList.count
-        return plants
+
+        guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
+                    return 0
+                }
+                return itemsCount
+//        let plants = mainCollectionViewModel.plantList.count
+//        return plants
         
     }
     
@@ -81,17 +81,16 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
             fatalError("Unable to dequeue PlantCell in mainCollectionView")
         }
-        // - MARK: arreglar funcionalidad de api
-        //        guard let plant = mainCollectionViewModel.page?.data[indexPath.row] else {
-        //            return cell
-        //        }
-        //        cell.configure(with: plant)
-        //
-        //        return cell
+                guard let plant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
+                    return cell
+                }
+                cell.configure(with: plant)
+
+                return cell
         
-        let plant = mainCollectionViewModel.plantList[indexPath.row]
-        cell.configure(with: plant)
-        return cell
+//        let plant = mainCollectionViewModel.plantList[indexPath.row]
+//        cell.configure(with: plant)
+//        return cell
     }
     
     //delegate
@@ -101,7 +100,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     
-    //flowlayput delegate
+    //flowlayout delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: (view.frame.size.width/3)-3,
                       height: (view.frame.size.width/3)-3)

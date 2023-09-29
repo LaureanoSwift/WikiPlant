@@ -32,8 +32,8 @@ final class PlantCell: UICollectionViewCell {
     public func configure(with plant: PlantModel) {
         self.plant = plant
         
-        self.nameLabel.text = plant.common_name
-        self.imageView.image = UIImage(named: plant.image_url)
+        self.nameLabel.text = plant.commonName
+        self.imageView.image = UIImage(named: plant.imageURL)
     }
     
     private func setupUI() {
