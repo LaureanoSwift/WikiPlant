@@ -11,16 +11,15 @@ import UIKit
 final class PlantCell: UICollectionViewCell {
     static let identifier = "PlantCell"
     private(set) var plant: PlantModel!
-//    private let mainCollectionViewModel = MainCollectionViewModel()
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .systemBlue
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
     
     private let nameLabel: UILabel = {
         let nameLabel = UILabel()
@@ -32,8 +31,22 @@ final class PlantCell: UICollectionViewCell {
     public func configure(with plant: PlantModel) {
         self.plant = plant
         
-        self.nameLabel.text = plant.commonName
+        guard let imageURL = URL(string: plant.imageURL) else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: imageURL) { [weak self] data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                self?.imageView.image = image
+            }
+        }.resume()
+        
         self.imageView.image = UIImage(named: plant.imageURL)
+        self.nameLabel.text = plant.commonName
     }
     
     private func setupUI() {
@@ -49,6 +62,7 @@ final class PlantCell: UICollectionViewCell {
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 5),
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            
         ])
     }
     

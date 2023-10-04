@@ -12,10 +12,11 @@ class MainCollectionView: UIViewController {
     let mainCollectionViewModel: MainCollectionViewModel = MainCollectionViewModel()
     
     lazy var collectionView: UICollectionView = {
-        let cv = UICollectionView(frame: .zero,
-                                  collectionViewLayout: UICollectionViewFlowLayout()
-        )
         
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
@@ -23,7 +24,7 @@ class MainCollectionView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // - MARK: arreglar funcionalidad de api
+        
         mainCollectionViewModel.fetchDataFromAPI()
         setUpObservers()
         configureView()
@@ -36,7 +37,6 @@ class MainCollectionView: UIViewController {
             }
         }
     }
-    
     
     func configureView() {
         
@@ -72,9 +72,6 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
                     return 0
                 }
                 return itemsCount
-//        let plants = mainCollectionViewModel.plantList.count
-//        return plants
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -88,9 +85,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
 
                 return cell
         
-//        let plant = mainCollectionViewModel.plantList[indexPath.row]
-//        cell.configure(with: plant)
-//        return cell
+
     }
     
     //delegate
@@ -110,12 +105,13 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 50
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     }
+    
     
     
 }

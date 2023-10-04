@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		184F42EB2AB4D3A4000064FF /* PlantPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F42EA2AB4D3A4000064FF /* PlantPage.swift */; };
 		184FD6752ABD27E800D7E76F /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184FD6742ABD27E800D7E76F /* Protocols.swift */; };
+		1858389F2ACCFCD6009FD03D /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858389E2ACCFCD5009FD03D /* DetailView.swift */; };
 		1861EF602AA80CFA00CDA7CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861EF5F2AA80CFA00CDA7CD /* AppDelegate.swift */; };
 		1861EF622AA80CFA00CDA7CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861EF612AA80CFA00CDA7CD /* SceneDelegate.swift */; };
 		1861EF642AA80CFA00CDA7CD /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1861EF632AA80CFA00CDA7CD /* MainCollectionView.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		184F42EA2AB4D3A4000064FF /* PlantPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPage.swift; sourceTree = "<group>"; };
 		184FD6742ABD27E800D7E76F /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		1858389E2ACCFCD5009FD03D /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		1861EF5C2AA80CFA00CDA7CD /* WikiPlant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WikiPlant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1861EF5F2AA80CFA00CDA7CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1861EF612AA80CFA00CDA7CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				1861EF632AA80CFA00CDA7CD /* MainCollectionView.swift */,
+				1858389E2ACCFCD5009FD03D /* DetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1861EF752AA80DA300CDA7CD /* MainCollectionViewModel.swift in Sources */,
+				1858389F2ACCFCD6009FD03D /* DetailView.swift in Sources */,
 				1861EF7C2AA8169200CDA7CD /* PlantCell.swift in Sources */,
 				184FD6752ABD27E800D7E76F /* Protocols.swift in Sources */,
 				1861EF642AA80CFA00CDA7CD /* MainCollectionView.swift in Sources */,

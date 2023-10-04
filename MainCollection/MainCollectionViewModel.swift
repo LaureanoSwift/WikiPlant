@@ -19,12 +19,12 @@ class MainCollectionViewModel {
                     dataDidChange?()
                 }
             }
-    
-    
 
             func fetchDataFromAPI() {
                 apiManager.fetchData { [weak self] plantPage in
                     self?.plantPage = plantPage
                 }
+                
             }
+    
 }
