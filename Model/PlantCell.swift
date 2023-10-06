@@ -29,23 +29,36 @@ final class PlantCell: UICollectionViewCell {
     }()
     
     public func configure(with plant: PlantModel) {
+        
         self.plant = plant
         
-        guard let imageURL = URL(string: plant.imageURL) else {
-            return
+        if let imageUrl = URL(string: plant.imageURL) {
+            APIClient.fetchImage(from: imageUrl) { image in
+                if image != nil {
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
+                    
+                }
+            }
         }
         
-        URLSession.shared.dataTask(with: imageURL) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.imageView.image = image
-            }
-        }.resume()
         
-        self.imageView.image = UIImage(named: plant.imageURL)
+//        guard let imageURL = URL(string: plant.imageURL) else {
+//            return
+//        }
+//
+//        URLSession.shared.dataTask(with: imageURL) { [weak self] data, _, error in
+//            guard let data = data, error == nil else {
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                let image = UIImage(data: data)
+//                self?.imageView.image = image
+//            }
+//        }.resume()
+        
+        //self.imageView.image = UIImage(named: plant.imageURL)
         self.nameLabel.text = plant.commonName
     }
     
@@ -64,6 +77,8 @@ final class PlantCell: UICollectionViewCell {
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
             
         ])
+        contentView.clipsToBounds = true
+        contentView.layer.cornerRadius = 30
     }
     
     override init(frame: CGRect) {

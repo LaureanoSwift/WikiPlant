@@ -22,6 +22,8 @@ struct PlantModel: Codable {
     let commonName, scientificName: String
     let familyCommonName: String?
     let imageURL: String
+    let synonyms: [String]
+    let family: String
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,6 +31,8 @@ struct PlantModel: Codable {
         case scientificName = "scientific_name"
         case familyCommonName = "family_common_name"
         case imageURL = "image_url"
+        case synonyms
+        case family
 
     }
 }
@@ -49,12 +53,12 @@ struct Meta: Codable {
 }
 
 // MARK: - MockArray
-extension PlantModel {
-    public static func getMockArray() -> [PlantModel]{
-        return[
-            PlantModel(id: 1, commonName: "Calatea", scientificName: "calateatus", familyCommonName: "nose", imageURL: "calatea"),
-               PlantModel(id: 2, commonName: "Ficus", scientificName: "Phicus", familyCommonName: "nose", imageURL: "ficus"),
-               PlantModel(id: 3, commonName: "Dolar", scientificName: "Dolaritus", familyCommonName: "nose", imageURL: "dolar")
-        ]
-    }
-}
+//extension PlantModel {
+//    public static func getMockArray() -> [PlantModel]{
+//        return[
+//            PlantModel(id: 1, commonName: "Calatea", scientificName: "calateatus", familyCommonName: "nose", imageURL: "calatea"),
+//               PlantModel(id: 2, commonName: "Ficus", scientificName: "Phicus", familyCommonName: "nose", imageURL: "ficus"),
+//               PlantModel(id: 3, commonName: "Dolar", scientificName: "Dolaritus", familyCommonName: "nose", imageURL: "dolar")
+//        ]
+//    }
+//}

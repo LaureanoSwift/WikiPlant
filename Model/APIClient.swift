@@ -9,6 +9,8 @@ import UIKit
 
 class APIClient {
     
+    private(set) var plant: PlantModel!
+    
     func fetchData(completion: @escaping (PlantPage) -> Void) {
         
         let endPoint = "https://trefle.io/api/v1/plants?token=6iBkYteQSqlDkPLG7e2VVXu5YewFcnBgCCc0TwESy4w"
@@ -39,6 +41,22 @@ class APIClient {
             
         }
         
+    }
+    
+    static func fetchImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print("Error al cargar la imagen :\(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            if let data = data, let image = UIImage(data: data) {
+                    completion(image)
+                } else {
+                    completion(nil)
+                }
+            }.resume()
     }
     
 }

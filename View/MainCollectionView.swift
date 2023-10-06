@@ -68,10 +68,12 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
-                    return 0
-                }
-                return itemsCount
+//        guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
+//                    return 0
+//                }
+//                return itemsCount
+        
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,6 +84,8 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
                     return cell
                 }
                 cell.configure(with: plant)
+        cell.contentView.layer.masksToBounds = true
+        
 
                 return cell
         
@@ -91,7 +95,14 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     //delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        // codigo para pasar a la vista del detalle de la planta
+        guard let selectedPlant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
+            return
+        }
+        let detailView = DetailView(selectedPlant: selectedPlant)
+        detailView.setData(selectedPlant)
+        navigationController?.pushViewController(detailView, animated: true)
+        
+        
     }
     
     

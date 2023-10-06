@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18475C132ACF96F800BDA856 /* ColorPalete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18475C122ACF96F800BDA856 /* ColorPalete.swift */; };
 		184F42EB2AB4D3A4000064FF /* PlantPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184F42EA2AB4D3A4000064FF /* PlantPage.swift */; };
 		184FD6752ABD27E800D7E76F /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184FD6742ABD27E800D7E76F /* Protocols.swift */; };
 		1858389F2ACCFCD6009FD03D /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1858389E2ACCFCD5009FD03D /* DetailView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18475C122ACF96F800BDA856 /* ColorPalete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalete.swift; sourceTree = "<group>"; };
 		184F42EA2AB4D3A4000064FF /* PlantPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantPage.swift; sourceTree = "<group>"; };
 		184FD6742ABD27E800D7E76F /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		1858389E2ACCFCD5009FD03D /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				184F42EA2AB4D3A4000064FF /* PlantPage.swift */,
 				1861EF7B2AA8169200CDA7CD /* PlantCell.swift */,
 				184FD6742ABD27E800D7E76F /* Protocols.swift */,
+				18475C122ACF96F800BDA856 /* ColorPalete.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			files = (
 				1861EF752AA80DA300CDA7CD /* MainCollectionViewModel.swift in Sources */,
 				1858389F2ACCFCD6009FD03D /* DetailView.swift in Sources */,
+				18475C132ACF96F800BDA856 /* ColorPalete.swift in Sources */,
 				1861EF7C2AA8169200CDA7CD /* PlantCell.swift in Sources */,
 				184FD6752ABD27E800D7E76F /* Protocols.swift in Sources */,
 				1861EF642AA80CFA00CDA7CD /* MainCollectionView.swift in Sources */,
