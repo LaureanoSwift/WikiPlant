@@ -12,6 +12,8 @@ final class PlantCell: UICollectionViewCell {
     static let identifier = "PlantCell"
     private(set) var plant: PlantModel!
     
+    
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -25,6 +27,8 @@ final class PlantCell: UICollectionViewCell {
         let nameLabel = UILabel()
         nameLabel.font = .boldSystemFont(ofSize: 15)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.textAlignment = .center
+        nameLabel.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         return nameLabel
     }()
     
@@ -42,23 +46,7 @@ final class PlantCell: UICollectionViewCell {
                 }
             }
         }
-        
-        
-//        guard let imageURL = URL(string: plant.imageURL) else {
-//            return
-//        }
-//
-//        URLSession.shared.dataTask(with: imageURL) { [weak self] data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                let image = UIImage(data: data)
-//                self?.imageView.image = image
-//            }
-//        }.resume()
-        
-        //self.imageView.image = UIImage(named: plant.imageURL)
+    
         self.nameLabel.text = plant.commonName
     }
     
@@ -67,18 +55,20 @@ final class PlantCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         
         NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 15),
             
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 5),
-            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            
             
         ])
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 30
+        layer.cornerRadius = 15
+        layer.masksToBounds = true
+
     }
     
     override init(frame: CGRect) {
@@ -93,6 +83,7 @@ final class PlantCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = contentView.bounds
+        
     }
     
     override func prepareForReuse() {

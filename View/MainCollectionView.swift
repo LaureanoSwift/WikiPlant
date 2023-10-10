@@ -16,8 +16,10 @@ class MainCollectionView: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        
         return cv
     }()
     
@@ -41,10 +43,10 @@ class MainCollectionView: UIViewController {
     func configureView() {
         
         self.navigationItem.title = "WikiPlant"
+        collectionView.backgroundColor = .darkGreen
         collectionView.register(PlantCell.self, forCellWithReuseIdentifier: PlantCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -68,12 +70,11 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-//        guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
-//                    return 0
-//                }
-//                return itemsCount
-        
-        return 3
+        guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
+                    return 0
+                }
+                return itemsCount
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -86,10 +87,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.configure(with: plant)
         cell.contentView.layer.masksToBounds = true
         
-
                 return cell
-        
-
     }
     
     //delegate
@@ -101,10 +99,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         let detailView = DetailView(selectedPlant: selectedPlant)
         detailView.setData(selectedPlant)
         navigationController?.pushViewController(detailView, animated: true)
-        
-        
     }
-    
     
     //flowlayout delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -116,12 +111,22 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 50
+        return 30
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     }
+
+//funcion de difuminado
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        if let cell = cell as? PlantCell {
+//            let blurEffect = UIBlurEffect(style: .light)
+//            let blurView = UIVisualEffectView(effect: blurEffect)
+//            blurView.frame = cell.bounds
+//            cell.addSubview(blurView)
+//        }
+//    }
     
     
     

@@ -19,7 +19,6 @@ class DetailView: UIViewController {
         return imageview
     }()
     
-    
     let name = createLabel(fontSize: 35)
     let scientificName = createLabel(fontSize: 30)
     let family = createLabel(fontSize: 20)
@@ -44,11 +43,12 @@ class DetailView: UIViewController {
     
     func setData(_ plant: PlantModel) {
         
-        
         if let imageUrl = URL(string: plant.imageURL) {
             APIClient.fetchImage(from: imageUrl) { image in
                 if image != nil {
-                    self.imageView.image = image
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
                 }
             }
         }
@@ -61,7 +61,7 @@ class DetailView: UIViewController {
     }
     
     func setUp() {
-        view.backgroundColor = .lightGreen
+        view.backgroundColor = .darkGreen
         view.addSubview(imageView)
         view.addSubview(name)
         view.addSubview(scientificName)
@@ -71,24 +71,25 @@ class DetailView: UIViewController {
         
         NSLayoutConstraint.activate([
         
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 400),
             
-            name.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            name.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            name.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+            name.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
             name.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             
-            scientificName.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scientificName.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scientificName.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+            scientificName.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
             scientificName.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
             
-            family.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            family.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            family.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+            family.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
             family.topAnchor.constraint(equalTo: scientificName.bottomAnchor, constant: 20),
             
-            synonyms.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            synonyms.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            synonyms.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
+            synonyms.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
             synonyms.topAnchor.constraint(equalTo: family.bottomAnchor, constant: 20),
         
         ])
@@ -105,6 +106,7 @@ func createLabel(fontSize: CGFloat) -> UILabel{
     label.numberOfLines = 0
     label.layer.masksToBounds = true
     label.layer.cornerRadius = 5
+    label.backgroundColor = UIColor.white.withAlphaComponent(0.5)
     return label
     
 }
