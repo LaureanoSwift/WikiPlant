@@ -10,6 +10,12 @@ import UIKit
 
 class DetailView: UIViewController {
     
+    private let scrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        scrollview.contentSize = CGSize(width: scrollview.frame.size.width, height: 800)
+        scrollview.translatesAutoresizingMaskIntoConstraints = false
+        return scrollview
+    }()
     
     private let imageView: UIImageView = {
         let imageview = UIImageView()
@@ -22,6 +28,7 @@ class DetailView: UIViewController {
     let name = createLabel(fontSize: 35)
     let scientificName = createLabel(fontSize: 30)
     let family = createLabel(fontSize: 20)
+    var tempSynonyms = ""
     let synonyms = createLabel(fontSize: 15)
     
     override func viewDidLoad() {
@@ -56,40 +63,52 @@ class DetailView: UIViewController {
         name.text = plant.commonName
         scientificName.text = plant.scientificName
         family.text = plant.family
+        for item in plant.synonyms {
+            tempSynonyms += item + "\n "
+        }
         
+        synonyms.text = tempSynonyms + "."
         
     }
     
     func setUp() {
+        
         view.backgroundColor = .darkGreen
-        view.addSubview(imageView)
-        view.addSubview(name)
-        view.addSubview(scientificName)
-        view.addSubview(family)
-        view.addSubview(synonyms)
+        view.addSubview(scrollView)
+        scrollView.addSubview(imageView)
+        scrollView.addSubview(name)
+        scrollView.addSubview(scientificName)
+        scrollView.addSubview(family)
+        scrollView.addSubview(synonyms)
         
         
         NSLayoutConstraint.activate([
-        
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.heightAnchor.constraint(equalToConstant: 400),
             
-            name.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
-            name.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        
+            imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
+            imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 500),
+            imageView.widthAnchor.constraint(equalToConstant: 350),
+            
+            name.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
+            name.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
             name.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             
-            scientificName.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
-            scientificName.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            scientificName.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
+            scientificName.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
             scientificName.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
             
-            family.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
-            family.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            family.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
+            family.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
             family.topAnchor.constraint(equalTo: scientificName.bottomAnchor, constant: 20),
             
-            synonyms.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
-            synonyms.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
+            synonyms.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
+            synonyms.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
             synonyms.topAnchor.constraint(equalTo: family.bottomAnchor, constant: 20),
         
         ])
@@ -104,7 +123,7 @@ func createLabel(fontSize: CGFloat) -> UILabel{
     label.translatesAutoresizingMaskIntoConstraints = false
     label.textColor = .black
     label.numberOfLines = 0
-    label.layer.masksToBounds = true
+    label.clipsToBounds = true
     label.layer.cornerRadius = 5
     label.backgroundColor = UIColor.white.withAlphaComponent(0.5)
     return label
