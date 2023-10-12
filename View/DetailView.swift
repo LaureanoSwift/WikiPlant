@@ -10,34 +10,47 @@ import UIKit
 
 class DetailView: UIViewController {
     
-    private let scrollView: UIScrollView = {
-        let scrollview = UIScrollView()
-        scrollview.contentSize = CGSize(width: scrollview.frame.size.width, height: 800)
-        scrollview.translatesAutoresizingMaskIntoConstraints = false
-        return scrollview
-    }()
-    
-    private let imageView: UIImageView = {
-        let imageview = UIImageView()
-        imageview.contentMode = .scaleAspectFill
-        imageview.clipsToBounds = true
-        imageview.translatesAutoresizingMaskIntoConstraints = false
-        return imageview
-    }()
-    
     let name = createLabel(fontSize: 35)
     let scientificName = createLabel(fontSize: 30)
     let family = createLabel(fontSize: 20)
     var tempSynonyms = ""
     let synonyms = createLabel(fontSize: 15)
     
+    private let selectedPlant: PlantModel
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .equalSpacing
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.addArrangedSubview(imageView)
+        stack.addArrangedSubview(name)
+        stack.addArrangedSubview(scientificName)
+        stack.addArrangedSubview(family)
+        stack.addArrangedSubview(synonyms)
+        return stack
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollview = UIScrollView()
+        
+        scrollview.translatesAutoresizingMaskIntoConstraints = false
+        scrollview.addSubview(stackView)
+        return scrollview
+    }()
+    
+    private var imageView: UIImageView = {
+        let imageview = UIImageView()
+        imageview.contentMode = .scaleAspectFit
+        imageview.clipsToBounds = true
+        imageview.translatesAutoresizingMaskIntoConstraints = false
+        return imageview
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        
     }
-    
-    private let selectedPlant: PlantModel
     
     init(selectedPlant: PlantModel) {
         self.selectedPlant = selectedPlant
@@ -66,7 +79,6 @@ class DetailView: UIViewController {
         for item in plant.synonyms {
             tempSynonyms += item + "\n "
         }
-        
         synonyms.text = tempSynonyms + "."
         
     }
@@ -75,12 +87,6 @@ class DetailView: UIViewController {
         
         view.backgroundColor = .darkGreen
         view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(name)
-        scrollView.addSubview(scientificName)
-        scrollView.addSubview(family)
-        scrollView.addSubview(synonyms)
-        
         
         NSLayoutConstraint.activate([
             
@@ -88,27 +94,32 @@ class DetailView: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
         
-            imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
-            imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
-            imageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
+            imageView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
+            imageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
             imageView.heightAnchor.constraint(equalToConstant: 500),
             imageView.widthAnchor.constraint(equalToConstant: 350),
             
-            name.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
-            name.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
+            name.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
+            name.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             name.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             
-            scientificName.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
-            scientificName.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
+            scientificName.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
+            scientificName.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             scientificName.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 20),
             
-            family.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
-            family.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
+            family.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
+            family.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             family.topAnchor.constraint(equalTo: scientificName.bottomAnchor, constant: 20),
             
-            synonyms.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,constant: 20),
-            synonyms.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,constant: -20),
+            synonyms.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
+            synonyms.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             synonyms.topAnchor.constraint(equalTo: family.bottomAnchor, constant: 20),
         
         ])
