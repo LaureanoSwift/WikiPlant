@@ -16,11 +16,19 @@ class MainCollectionView: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         
         return cv
+    }()
+    
+    let pageControl: UIPageControl = {
+        let pagecontrol = UIPageControl()
+        pagecontrol.numberOfPages = 10
+        pagecontrol.currentPage = 1
+        pagecontrol.translatesAutoresizingMaskIntoConstraints = false
+        pagecontrol.isHidden = true
+       return pagecontrol
     }()
     
     
@@ -48,12 +56,18 @@ class MainCollectionView: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
+        view.addSubview(pageControl)
+        
         
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
             
         ])
         
@@ -66,7 +80,17 @@ class MainCollectionView: UIViewController {
     
 }
 
+// MARK: - COLLECTION VIEW EXTENSION
 extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == collectionView {
+            pageControl.isHidden = false
+            let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+            pageControl.currentPage = currentPage
+        }
+    }
+    
     //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -111,24 +135,11 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 30
+        return 27
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     }
-
-//funcion de difuminado
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        if let cell = cell as? PlantCell {
-//            let blurEffect = UIBlurEffect(style: .light)
-//            let blurView = UIVisualEffectView(effect: blurEffect)
-//            blurView.frame = cell.bounds
-//            cell.addSubview(blurView)
-//        }
-//    }
-    
-    
-    
 }
 
