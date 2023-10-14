@@ -11,8 +11,10 @@ class MainCollectionView: UIViewController {
     
     let mainCollectionViewModel: MainCollectionViewModel = MainCollectionViewModel()
     
+    var currentPage = 1
+    let pageSize = 20
+    
     lazy var collectionView: UICollectionView = {
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
@@ -24,11 +26,8 @@ class MainCollectionView: UIViewController {
     
     let pageControl: UIPageControl = {
         let pagecontrol = UIPageControl()
-        pagecontrol.numberOfPages = 10
-        pagecontrol.currentPage = 1
         pagecontrol.translatesAutoresizingMaskIntoConstraints = false
-        pagecontrol.isHidden = true
-       return pagecontrol
+        return pagecontrol
     }()
     
     
@@ -55,6 +54,10 @@ class MainCollectionView: UIViewController {
         collectionView.register(PlantCell.self, forCellWithReuseIdentifier: PlantCell.identifier)
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        pageControl.numberOfPages = 10
+        pageControl.currentPage = 1
+        pageControl.isHidden = true
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         
@@ -86,32 +89,39 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == collectionView {
             pageControl.isHidden = false
-            let currentPage = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-            pageControl.currentPage = currentPage
+            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
+            let newPage = Int(pageIndex)
+            
+            if newPage != mainCollectionViewModel.page {
+                mainCollectionViewModel.page = newPage
+            }
+            pageControl.currentPage = mainCollectionViewModel.page
         }
+        
+        mainCollectionViewModel.fetchDataFromAPI()
     }
     
     //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
+        
         guard let itemsCount = mainCollectionViewModel.plantPage?.data.count else {
-                    return 0
-                }
-                return itemsCount
-    
+            return 0
+        }
+        return itemsCount
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
             fatalError("Unable to dequeue PlantCell in mainCollectionView")
         }
-                guard let plant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
-                    return cell
-                }
-                cell.configure(with: plant)
+        guard let plant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
+            return cell
+        }
+        cell.configure(with: plant)
         cell.contentView.layer.masksToBounds = true
         
-                return cell
+        return cell
     }
     
     //delegate

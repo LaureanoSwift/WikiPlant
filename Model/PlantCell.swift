@@ -46,7 +46,7 @@ final class PlantCell: UICollectionViewCell {
                 }
             }
         }
-    
+        
         self.nameLabel.text = plant.commonName
     }
     
@@ -68,7 +68,7 @@ final class PlantCell: UICollectionViewCell {
         ])
         layer.cornerRadius = 15
         layer.masksToBounds = true
-
+        
     }
     
     override init(frame: CGRect) {

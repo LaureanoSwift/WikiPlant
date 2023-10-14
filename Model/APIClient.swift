@@ -9,12 +9,11 @@ import UIKit
 
 class APIClient {
     
-    let numberOfPage = 1
     private(set) var plant: PlantModel!
     
-    func fetchData(completion: @escaping (PlantPage) -> Void) {
+    func fetchData(forPage page: Int, completion: @escaping (PlantPage) -> Void) {
         
-        let endPoint = "https://trefle.io/api/v1/plants?token=6iBkYteQSqlDkPLG7e2VVXu5YewFcnBgCCc0TwESy4w&order[common_name]=asc&page=\(numberOfPage)"
+        let endPoint = "https://trefle.io/api/v1/plants?token=6iBkYteQSqlDkPLG7e2VVXu5YewFcnBgCCc0TwESy4w&order[common_name]=asc&page=\(page)"
         
         if let url = URL(string: endPoint){
             URLSession.shared.dataTask(with: url) { data, response, error in
@@ -53,11 +52,11 @@ class APIClient {
                 return
             }
             if let data = data, let image = UIImage(data: data) {
-                    completion(image)
-                } else {
-                    completion(nil)
-                }
-            }.resume()
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }.resume()
     }
     
 }

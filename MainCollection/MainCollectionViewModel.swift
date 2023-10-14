@@ -10,7 +10,7 @@ import UIKit
 class MainCollectionViewModel {
     
     //    var plantList: [PlantModel] = PlantModel.getMockArray()
-    
+    var page: Int = 1
     var apiManager = APIClient()
     var dataDidChange: (() -> Void)?
     
@@ -21,7 +21,7 @@ class MainCollectionViewModel {
     }
     
     func fetchDataFromAPI() {
-        apiManager.fetchData { [weak self] plantPage in
+        apiManager.fetchData(forPage: page) { [weak self] plantPage in
             self?.plantPage = plantPage
         }
         

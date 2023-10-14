@@ -99,7 +99,7 @@ class DetailView: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-        
+            
             imageView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
             imageView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             imageView.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 10),
@@ -121,7 +121,7 @@ class DetailView: UIViewController {
             synonyms.leadingAnchor.constraint(equalTo: stackView.leadingAnchor,constant: 20),
             synonyms.trailingAnchor.constraint(equalTo: stackView.trailingAnchor,constant: -20),
             synonyms.topAnchor.constraint(equalTo: family.bottomAnchor, constant: 20),
-        
+            
         ])
     }
     

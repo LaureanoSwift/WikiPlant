@@ -24,7 +24,7 @@ struct PlantModel: Codable {
     let imageURL: String
     let synonyms: [String]
     let family: String
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case commonName = "common_name"
@@ -33,14 +33,14 @@ struct PlantModel: Codable {
         case imageURL = "image_url"
         case synonyms
         case family
-
+        
     }
 }
 
 // MARK: - PageLinks
 struct PageLinks: Codable {
     let linksSelf, first, next, last: String
-
+    
     enum CodingKeys: String, CodingKey {
         case linksSelf = "self"
         case first, next, last
