@@ -20,6 +20,8 @@ class MainCollectionView: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.isPagingEnabled = true
+        
         
         return cv
     }()
@@ -66,12 +68,10 @@ class MainCollectionView: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
-            
         ])
         
     }
@@ -88,17 +88,19 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == collectionView {
+            let pageWidth = scrollView.frame.size.width
+            let currentPage = Int((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
             pageControl.isHidden = false
-            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
-            let newPage = Int(pageIndex)
+            print("\(currentPage) \(scrollView.contentOffset.x) \(pageWidth)")
             
-            if newPage != mainCollectionViewModel.page {
-                mainCollectionViewModel.page = newPage
+            if currentPage != mainCollectionViewModel.page {
+                mainCollectionViewModel.page = currentPage
             }
             pageControl.currentPage = mainCollectionViewModel.page
         }
         
         mainCollectionViewModel.fetchDataFromAPI()
+        
     }
     
     //Datasource
@@ -137,8 +139,8 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     //flowlayout delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.size.width/3)-3,
-                      height: (view.frame.size.width/3)-3)
+        return CGSize(width: (view.frame.size.width/2)-2,
+                      height: (view.frame.size.width/2)-2)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1

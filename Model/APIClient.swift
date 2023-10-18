@@ -15,7 +15,8 @@ class APIClient {
         
         let endPoint = "https://trefle.io/api/v1/plants?token=6iBkYteQSqlDkPLG7e2VVXu5YewFcnBgCCc0TwESy4w&order[common_name]=asc&page=\(page)"
         
-        if let url = URL(string: endPoint){
+        if let url = URL(string: endPoint) {
+            
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
                     print("error al hacer la solicitud api: \(error.localizedDescription)")
