@@ -21,8 +21,6 @@ class MainCollectionView: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isPagingEnabled = true
-        
-        
         return cv
     }()
     
@@ -57,9 +55,10 @@ class MainCollectionView: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        pageControl.numberOfPages = 10
-        pageControl.currentPage = 1
+        pageControl.numberOfPages = 50
+        pageControl.currentPage = mainCollectionViewModel.currentPage
         pageControl.isHidden = true
+        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         
@@ -68,12 +67,23 @@ class MainCollectionView: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            collectionView.heightAnchor.constraint(equalToConstant: 50),
+            
             
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25)
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25)
         ])
         
+    }
+    
+    @objc func pageControlDidChange( _ sender: UIPageControl) {
+        if sender.currentPage > mainCollectionViewModel.currentPage {
+            mainCollectionViewModel.nextPage()
+        } else if sender.currentPage < mainCollectionViewModel.currentPage {
+            mainCollectionViewModel.previousPage()
+        }
+        mainCollectionViewModel.fetchDataFromAPI()
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,10 +103,10 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
             pageControl.isHidden = false
             print("\(currentPage) \(scrollView.contentOffset.x) \(pageWidth)")
             
-            if currentPage != mainCollectionViewModel.page {
-                mainCollectionViewModel.page = currentPage
+            if currentPage != mainCollectionViewModel.currentPage {
+                mainCollectionViewModel.currentPage = currentPage
             }
-            pageControl.currentPage = mainCollectionViewModel.page
+            pageControl.currentPage = mainCollectionViewModel.currentPage
         }
         
         mainCollectionViewModel.fetchDataFromAPI()
