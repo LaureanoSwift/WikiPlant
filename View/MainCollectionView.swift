@@ -16,11 +16,11 @@ class MainCollectionView: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isPagingEnabled = true
+        
         return cv
     }()
     
@@ -57,22 +57,20 @@ class MainCollectionView: UIViewController {
         
         pageControl.numberOfPages = 50
         pageControl.currentPage = mainCollectionViewModel.currentPage
-        pageControl.isHidden = true
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         view.addSubview(collectionView)
         view.addSubview(pageControl)
         
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            collectionView.heightAnchor.constraint(equalToConstant: 50),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            
-            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -25)
+            pageControl.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            pageControl.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            pageControl.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
     }
@@ -100,8 +98,6 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         if scrollView == collectionView {
             let pageWidth = scrollView.frame.size.width
             let currentPage = Int((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
-            pageControl.isHidden = false
-            print("\(currentPage) \(scrollView.contentOffset.x) \(pageWidth)")
             
             if currentPage != mainCollectionViewModel.currentPage {
                 mainCollectionViewModel.currentPage = currentPage
@@ -149,8 +145,8 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     
     //flowlayout delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.size.width/2)-2,
-                      height: (view.frame.size.width/2)-2)
+        return CGSize(width: (view.frame.size.width/4)-4,
+                      height: (view.frame.size.width/4)-4)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1

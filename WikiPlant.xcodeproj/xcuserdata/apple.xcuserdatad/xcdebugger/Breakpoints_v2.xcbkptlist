@@ -14,8 +14,8 @@
             filePath = "View/MainCollectionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,24 +30,8 @@
             filePath = "View/MainCollectionView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "scrollViewDidEndDecelerating(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "15440702-0DEC-42E8-A4C2-207A28C4C266"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "View/MainCollectionView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "scrollViewDidEndDecelerating(_:)"
             landmarkType = "7">
          </BreakpointContent>

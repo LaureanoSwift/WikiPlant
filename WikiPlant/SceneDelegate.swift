@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let navController = UINavigationController(rootViewController: MainCollectionView())
+        let navController = UINavigationController(rootViewController: LaunchScreen())
         navController.navigationBar.tintColor = .black
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
