@@ -11,8 +11,10 @@ class MainCollectionView: UIViewController {
     
     let mainCollectionViewModel: MainCollectionViewModel = MainCollectionViewModel()
     
-    var currentPage = 1
+    var currentPage = 0
     let pageSize = 20
+    
+    
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -20,7 +22,6 @@ class MainCollectionView: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.isPagingEnabled = true
-        
         return cv
     }()
     
@@ -30,9 +31,9 @@ class MainCollectionView: UIViewController {
         return pagecontrol
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: false)
         
         mainCollectionViewModel.fetchDataFromAPI()
         setUpObservers()
@@ -48,6 +49,10 @@ class MainCollectionView: UIViewController {
     }
     
     func configureView() {
+
+//        guard let numberOfPages = mainCollectionViewModel.plantPage?.meta.total else {
+//            return
+//        }
         
         self.navigationItem.title = "WikiPlant"
         collectionView.backgroundColor = .darkGreen
@@ -55,7 +60,7 @@ class MainCollectionView: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        pageControl.numberOfPages = 50
+        pageControl.numberOfPages = 100
         pageControl.currentPage = mainCollectionViewModel.currentPage
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         view.addSubview(collectionView)
@@ -123,12 +128,12 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
             fatalError("Unable to dequeue PlantCell in mainCollectionView")
         }
+        
         guard let plant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
             return cell
         }
         cell.configure(with: plant)
         cell.contentView.layer.masksToBounds = true
-        
         return cell
     }
     
@@ -157,7 +162,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
+        return UIEdgeInsets(top: 1, left: 1, bottom: 6, right: 1)
     }
 }
 

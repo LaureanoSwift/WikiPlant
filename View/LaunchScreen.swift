@@ -4,8 +4,6 @@
 //
 //  Created by Camila Storck on 17/10/2023.
 //
-
-
 // MARK: - rootearlo para que sea lo primero a mostrar
 
 
@@ -24,32 +22,43 @@ class LaunchScreen: UIViewController {
     
     let progressBar : UIProgressView = {
         let progresbar = UIProgressView()
-        
         progresbar.tintColor = .darkGreen
-        progresbar.progress = 0.5
+        progresbar.progress = 0.1
         progresbar.translatesAutoresizingMaskIntoConstraints = false
         return progresbar
     }()
-        
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureView()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        view.backgroundColor = .lightGreen
-        
-        
-            
-            
-            
+        ProgressBarLoad()
+        DispatchQueue.main.asyncAfter(deadline: .now()+26) {
+            let mainCollectionView = MainCollectionView()
+            self.navigationController?.pushViewController(mainCollectionView, animated: true)
         }
+    }
+    
+    func ProgressBarLoad() {
+        for x in 1..<100 {
+            DispatchQueue.main.asyncAfter(deadline: .now()+Double(x)*0.25) {
+                self.progressBar.setProgress(Float(x)/100, animated: true)
+            }
+
+        }
+    }
+    
     func configureView() {
+        view.backgroundColor = .lightGreen
         view.addSubview(imageView)
         view.addSubview(progressBar)
         
-        
         NSLayoutConstraint.activate([
-        
+            
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
@@ -57,10 +66,8 @@ class LaunchScreen: UIViewController {
             progressBar.topAnchor.constraint(equalTo: imageView.bottomAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25)
-            
-        
         
         ])
     }
+    
 }
-
