@@ -2,7 +2,7 @@
 //  Cell.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 05/09/2023.
+//  Created by Laureano Velasco on 05/09/2023.
 //
 
 import Foundation
@@ -32,7 +32,7 @@ final class PlantCell: UICollectionViewCell {
         return nameLabel
     }()
     
-    public func configure(with plant: PlantModel) {
+    public func configureCell(with plant: PlantModel) {
         
         self.plant = plant
         

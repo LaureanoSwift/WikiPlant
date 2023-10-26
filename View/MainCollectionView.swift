@@ -2,20 +2,30 @@
 //  ViewController.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 05/09/2023.
+//  Created by Laureano Velasco on 05/09/2023.
 //
 
 import UIKit
 
 class MainCollectionView: UIViewController {
     
+    // MARK: - Variables
     let mainCollectionViewModel: MainCollectionViewModel = MainCollectionViewModel()
-    
-    var currentPage = 0
+    let firstPage: PlantPage?
+    var currentPage = 1
     let pageSize = 20
     
+    // MARK: - Data from LaunchScreen
+    init(firstPage: PlantPage) {
+        self.firstPage = firstPage
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    // MARK: - interface
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         
@@ -40,6 +50,8 @@ class MainCollectionView: UIViewController {
         configureView()
     }
     
+    
+    // MARK: - Functions
     func setUpObservers() {
         mainCollectionViewModel.dataDidChange = { [weak self] in
             DispatchQueue.main.async {
@@ -49,10 +61,6 @@ class MainCollectionView: UIViewController {
     }
     
     func configureView() {
-
-//        guard let numberOfPages = mainCollectionViewModel.plantPage?.meta.total else {
-//            return
-//        }
         
         self.navigationItem.title = "WikiPlant"
         collectionView.backgroundColor = .darkGreen
@@ -114,6 +122,7 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         
     }
     
+    
     //Datasource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -123,20 +132,6 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         return itemsCount
         
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
-            fatalError("Unable to dequeue PlantCell in mainCollectionView")
-        }
-        
-        guard let plant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
-            return cell
-        }
-        cell.configure(with: plant)
-        cell.contentView.layer.masksToBounds = true
-        return cell
-    }
-    
     //delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -147,6 +142,32 @@ extension MainCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         detailView.setData(selectedPlant)
         navigationController?.pushViewController(detailView, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlantCell.identifier, for: indexPath) as? PlantCell else {
+            fatalError("Unable to dequeue PlantCell in mainCollectionView")
+        }
+        
+        // MARK: - Intento de implementacion de precarga de pagina
+        
+        guard let plant1 = firstPage?.data[indexPath.row] else {
+            return cell
+        }
+        guard let otherplant = mainCollectionViewModel.plantPage?.data[indexPath.row] else {
+            return cell
+        }
+        
+        if currentPage == 1 {
+            cell.configureCell(with: plant1)
+        } else {
+            cell.configureCell(with: otherplant)
+        }
+        
+        cell.contentView.layer.masksToBounds = true
+        return cell
+    }
+    
+    
     
     //flowlayout delegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

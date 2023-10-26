@@ -2,7 +2,7 @@
 //  DetailView.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 03/10/2023.
+//  Created by Laureano Velasco on 03/10/2023.
 //
 
 import Foundation

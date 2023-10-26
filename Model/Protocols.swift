@@ -2,7 +2,7 @@
 //  Protocols.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 21/09/2023.
+//  Created by Laureano Velasco on 21/09/2023.
 //
 
 import Foundation

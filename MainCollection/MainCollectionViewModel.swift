@@ -2,14 +2,13 @@
 //  MainTableViewModel.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 05/09/2023.
+//  Created by Laureano Velasco on 05/09/2023.
 //
 
 import UIKit
 
 class MainCollectionViewModel {
     
-    //    var plantList: [PlantModel] = PlantModel.getMockArray()
     var currentPage: Int = 1
     var apiManager = APIClient()
     var dataDidChange: (() -> Void)?

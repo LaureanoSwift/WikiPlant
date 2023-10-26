@@ -2,7 +2,7 @@
 //  PlantPage.swift
 //  WikiPlant
 //
-//  Created by Camila Storck on 15/09/2023.
+//  Created by Laureano Velasco on 15/09/2023.
 //
 
 import UIKit
@@ -52,13 +52,4 @@ struct Meta: Codable {
     let total: Int
 }
 
-// MARK: - MockArray
-//extension PlantModel {
-//    public static func getMockArray() -> [PlantModel]{
-//        return[
-//            PlantModel(id: 1, commonName: "Calatea", scientificName: "calateatus", familyCommonName: "nose", imageURL: "calatea"),
-//               PlantModel(id: 2, commonName: "Ficus", scientificName: "Phicus", familyCommonName: "nose", imageURL: "ficus"),
-//               PlantModel(id: 3, commonName: "Dolar", scientificName: "Dolaritus", familyCommonName: "nose", imageURL: "dolar")
-//        ]
-//    }
-//}
+
