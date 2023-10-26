@@ -5,8 +5,8 @@
 ### En este casi le añadi un Page Control y una Launch Screen.
 
 ![LaunchScreen](/Desktop/Laureano/wiki/screenshots/LaunchScreen.png)
-![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Collection.png)
-![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail.png)
-![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail2.png)
+![Collection](/Users/apple/Desktop/Laureano/wiki/screenshots/Collection.png)
+![Detail](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail.png)
+![Detail2](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail2.png)
 
 ## Gracias a los que se tomaron el tiempo de leer.
