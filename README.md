@@ -4,7 +4,7 @@
 ### Tambien se puede seleccionar cada elemento para obtener informacion detallada de cada planta como su nombre cientifico, su familia y sos sinonimos.
 ### En este casi le añadi un Page Control y una Launch Screen.
 
-![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/LaunchScreen.png)
+![LaunchScreen](/Desktop/Laureano/wiki/screenshots/LaunchScreen.png)
 ![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Collection.png)
 ![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail.png)
 ![LaunchScreen](/Users/apple/Desktop/Laureano/wiki/screenshots/Detail2.png)
